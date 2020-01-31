@@ -27,11 +27,11 @@ cd saf-longrun-job-dataflow
 python -m virtualenv env -p python3
 source env/bin/activate
 pip install -r requirements.txt
-python saflongrunjobdataflow.py --output_bigquery $DEVSHELL_PROJECT_ID:saf.transcripts --input_topic projects/$DEVSHELL_PROJECT_ID/topics/payload --region=us-central1 --project=$DEVSHELL_PROJECT_ID --temp_location=gs://$DEVSHELL_PROJECT_ID-staging/ staging_location=gs://$DEVSHELL_PROJECT_ID-staging/ --runner=DataflowRunner
+python saflongrunjobdataflow.py --output_bigquery=$DEVSHELL_PROJECT_ID:saf.transcripts --input_topic=projects/$DEVSHELL_PROJECT_ID/topics/payload --region=us-central1 --project=$DEVSHELL_PROJECT_ID --temp_location=gs://$DEVSHELL_PROJECT_ID-staging/ --staging_location=gs://$DEVSHELL_PROJECT_ID-staging/ --runner=DataflowRunner
 cd ..
 
 # Upload Sample Audio Files for Processing
-
+gsutil -h x-goog-meta-agentid:1234567 -h x-goog-meta-stereo:true -h x-goog-meta-agentchannel:1 -h x-goog-meta-pubsubtopicname:processAudio -h x-goog-meta-year:2019 -h x-goog-meta-month:11 -h x-goog-meta-day:06 -h x-goog-meta-starttime:1116 cp  * gs://$DEVSHELL_PROJECT_ID-upload/
 
 
 # What is the TOP named entity in the 5 audio files processed by the pipeline? -> "Plan"
